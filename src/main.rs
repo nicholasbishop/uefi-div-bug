@@ -10,11 +10,6 @@ fn hide_u128(n: u128) -> u128 {
     n
 }
 
-#[inline(never)]
-fn bish_div(a: u128, b: u128) -> u128 {
-    a / b
-}
-
 #[entry]
 fn efi_main(_image: Handle, st: SystemTable<Boot>) -> Status {
     uefi_services::init(&st).unwrap().unwrap();
@@ -27,10 +22,6 @@ fn efi_main(_image: Handle, st: SystemTable<Boot>) -> Status {
     info!("a-b={}", a - b);
     info!("a*b={}", a * b);
     info!("a/b={}", a / b);
-
-    let c = bish_div(a, b);
-
-    info!("div={}", c);
 
     panic!("reached end");
 }
