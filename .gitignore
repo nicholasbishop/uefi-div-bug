@@ -1,1 +1,3 @@
 /target
+efi_partition/EFI/BOOT/BOOTX64.EFI
+efi_partition/NvVars
