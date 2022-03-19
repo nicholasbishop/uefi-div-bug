@@ -30,7 +30,7 @@ def main():
         '-enable-kvm',
         '-display', 'none',
         '-serial', 'stdio',
-        '-drive', 'if=pflash,format=raw,readonly,file=' + ovmf,
+        '-drive', 'if=pflash,format=raw,readonly=on,file=' + ovmf,
         '-drive', 'format=raw,file=fat:rw:' + efi_partition,
     )
     # yapf: enable
