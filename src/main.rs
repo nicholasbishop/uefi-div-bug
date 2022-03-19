@@ -14,6 +14,8 @@ fn hide_u128(n: u128) -> u128 {
 fn efi_main(_image: Handle, mut st: SystemTable<Boot>) -> Status {
     uefi_services::init(&mut st).unwrap();
 
+    info!("efi_main addr={:x?}", efi_main as *const ());
+
     let a = hide_u128(2);
     let b = hide_u128(1);
     info!("a={}, b={}", a, b);

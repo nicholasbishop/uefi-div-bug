@@ -4,7 +4,7 @@ Minimal-ish bug repro for u128 division on the `x86_64-unknown-uefi` target.
 
 To build the EFI application and run it in qemu:
 
-    ./run.py
+    cargo xtask
 
 Output:
 
