@@ -30,6 +30,7 @@ def main():
         '-enable-kvm',
         '-display', 'none',
         '-serial', 'stdio',
+        '-nodefaults',
         '-drive', 'if=pflash,format=raw,readonly=on,file=' + ovmf,
         '-drive', 'format=raw,file=fat:rw:' + efi_partition,
     )
