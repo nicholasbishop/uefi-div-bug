@@ -6,3 +6,5 @@ edition = "2021"
 [dependencies]
 anyhow = "1.0.56"
 command-run = "1.1.1"
+goblin = "0.5.1"
+pdb = "0.7.0"
