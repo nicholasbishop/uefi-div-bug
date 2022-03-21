@@ -73,6 +73,14 @@ fn main() -> Result<()> {
             &format!("if=pflash,format=raw,readonly=on,file={}", ovmf),
             "-drive",
             &format!("format=raw,file=fat:rw:{}", efi_partition),
+            // OVMF debug output
+            "-debugcon",
+            "file:debug.log",
+            "-global",
+            "isa-debugcon.iobase=0x402",
+            // gdb
+            "-s",
+            "-S",
         ],
     )
     .run()?;
