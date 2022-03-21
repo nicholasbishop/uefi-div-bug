@@ -65,16 +65,25 @@ fn main() -> Result<()> {
         ..text_section.pointer_to_raw_data as usize + text_section.size_of_raw_data as usize];
 
     // From debug.log
-    const ENTRYPOINT: usize = 0x000063AB250;
+    const ENTRYPOINT: usize = 0x000063ab250;
+
+    let func_info = load_pdb(pdb_path)?;
+    let efi_main_info = func_info
+        .iter()
+        .find(|fi| fi.name.ends_with("efi_main"))
+        .unwrap();
+    let load_offset = ENTRYPOINT - efi_main_info.addr_range.start;
 
     let mut disas_output = String::new();
-    let func_info = load_pdb(pdb_path)?;
     for fi in func_info {
         disas_output += &format!("{}:\n", fi.name);
         let offset = text_section.virtual_address as usize;
         let start = fi.addr_range.start - offset;
         let end = fi.addr_range.end - offset;
-        disas_output += &disas(&text_data[start..end], fi.addr_range.start as u64);
+        disas_output += &disas(
+            &text_data[start..end],
+            fi.addr_range.start as u64 + load_offset as u64,
+        );
         disas_output += "\n";
     }
     fs::write("disas.txt", disas_output).unwrap();
