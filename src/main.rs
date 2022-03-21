@@ -10,6 +10,11 @@ fn hide_u128(n: u128) -> u128 {
     n
 }
 
+#[inline(never)]
+fn do_div(a: u128, b: u128) -> u128 {
+    a / b
+}
+
 #[entry]
 fn efi_main(_image: Handle, mut st: SystemTable<Boot>) -> Status {
     uefi_services::init(&mut st).unwrap();
@@ -23,7 +28,7 @@ fn efi_main(_image: Handle, mut st: SystemTable<Boot>) -> Status {
     info!("a+b={}", a + b);
     info!("a-b={}", a - b);
     info!("a*b={}", a * b);
-    info!("a/b={}", a / b);
+    info!("a/b={}", do_div(a, b));
 
     panic!("reached end");
 }
