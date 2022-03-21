@@ -64,16 +64,20 @@ fn main() -> Result<()> {
     let text_data = &efi_app_bytes[text_section.pointer_to_raw_data as usize
         ..text_section.pointer_to_raw_data as usize + text_section.size_of_raw_data as usize];
 
+    // From debug.log
     const ENTRYPOINT: usize = 0x000063AB250;
 
+    let mut disas_output = String::new();
     let func_info = load_pdb(pdb_path)?;
     for fi in func_info {
-        println!("{}:", fi.name);
+        disas_output += &format!("{}:\n", fi.name);
         let offset = text_section.virtual_address as usize;
         let start = fi.addr_range.start - offset;
         let end = fi.addr_range.end - offset;
-        disas(&text_data[start..end], fi.addr_range.start as u64);
+        disas_output += &disas(&text_data[start..end], fi.addr_range.start as u64);
+        disas_output += "\n";
     }
+    fs::write("disas.txt", disas_output).unwrap();
 
     Command::with_args(
         qemu,
@@ -147,7 +151,7 @@ fn load_pdb(path: &str) -> Result<Vec<FuncInfo>> {
 }
 
 // Based on example in https://docs.rs/iced-x86/latest/iced_x86/index.html
-fn disas(bytes: &[u8], start_addr: u64) {
+fn disas(bytes: &[u8], start_addr: u64) -> String {
     let mut decoder = Decoder::with_ip(64, bytes, start_addr, DecoderOptions::NONE);
 
     let mut formatter = NasmFormatter::new();
@@ -156,12 +160,16 @@ fn disas(bytes: &[u8], start_addr: u64) {
     let mut output = String::new();
     let mut instruction = Instruction::default();
 
+    let mut text = String::new();
+
     while decoder.can_decode() {
         decoder.decode_out(&mut instruction);
 
         output.clear();
         formatter.format(&instruction, &mut output);
 
-        println!("{:08x} {}", instruction.ip(), output);
+        text = format!("{}{:08x} {}\n", text, instruction.ip(), output);
     }
+
+    text
 }
