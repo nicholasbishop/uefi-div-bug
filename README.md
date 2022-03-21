@@ -32,3 +32,13 @@ IDTR - 0000000007039018 0000000000000FFF,   TR - 0000000000000000
 FXSAVE_STATE - 0000000007EF4DE0
 !!!! Find image based on IP(0x60DDB40) /home/nbishop/cloudready/uefi-div-bug/target/x86_64-unknown-uefi/debug/deps/uefi_div_bug-754a18511c591104.pdb (ImageBase=00000000060D1000, EntryPoint=00000000060D2230) !!!!
 ```
+
+Stack:
+```
+uefi_div_bug::do_div
+compiler_builtins::int::udiv::__udivti3::__udivti3
+compiler_builtins::int::udiv::__udivti3
+compiler_builtins::int::specialized_div_rem::u128_div_rem
+compiler_builtins::int::specialized_div_rem::zero_div_fn
+core::hint::unreachable_unchecked
+```
