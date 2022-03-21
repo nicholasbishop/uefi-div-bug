@@ -64,6 +64,8 @@ fn main() -> Result<()> {
     let text_data = &efi_app_bytes[text_section.pointer_to_raw_data as usize
         ..text_section.pointer_to_raw_data as usize + text_section.size_of_raw_data as usize];
 
+    const ENTRYPOINT: usize = 0x000063AB250;
+
     let func_info = load_pdb(pdb_path)?;
     for fi in func_info {
         println!("{}:", fi.name);
