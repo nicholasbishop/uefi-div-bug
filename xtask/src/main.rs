@@ -1,7 +1,7 @@
 use anyhow::Result;
 use command_run::Command;
 use goblin::pe::PE;
-use iced_x86::{Decoder, DecoderOptions, Formatter, Instruction, NasmFormatter};
+use iced_x86::{Decoder, DecoderOptions, Formatter, GasFormatter, Instruction};
 use pdb::{FallibleIterator, SymbolData, PDB};
 use std::ffi::CStr;
 use std::fs;
@@ -163,7 +163,7 @@ fn load_pdb(path: &str) -> Result<Vec<FuncInfo>> {
 fn disas(bytes: &[u8], start_addr: u64) -> String {
     let mut decoder = Decoder::with_ip(64, bytes, start_addr, DecoderOptions::NONE);
 
-    let mut formatter = NasmFormatter::new();
+    let mut formatter = GasFormatter::new();
     formatter.options_mut().set_digit_separator("`");
     formatter.options_mut().set_first_operand_char_index(10);
     let mut output = String::new();
