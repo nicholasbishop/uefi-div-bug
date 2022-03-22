@@ -67,7 +67,7 @@ fn main() -> Result<()> {
         ..text_section.pointer_to_raw_data as usize + text_section.size_of_raw_data as usize];
 
     // From debug.log
-    const ENTRYPOINT: usize = 0x000063ab250;
+    const ENTRYPOINT: usize = 0x000063ac410;
 
     let func_info = load_pdb(pdb_path)?;
     let efi_main_info = func_info
