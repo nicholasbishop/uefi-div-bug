@@ -37,8 +37,8 @@ Stack:
 ```
 uefi_div_bug::do_div
 compiler_builtins::int::udiv::__udivti3::__udivti3
-compiler_builtins::int::udiv::__udivti3
-compiler_builtins::int::specialized_div_rem::u128_div_rem
+compiler_builtins::int::udiv::__udivti3 (_ZN17compiler_builtins3int4udiv9__udivti317h6b869760159705b5E)
+compiler_builtins::int::specialized_div_rem::u128_div_rem (_ZN17compiler_builtins3int19specialized_div_rem12u128_div_rem17h47c3314ad8a82d38E)
 compiler_builtins::int::specialized_div_rem::zero_div_fn
 core::hint::unreachable_unchecked
 ```

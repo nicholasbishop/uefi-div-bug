@@ -13,7 +13,7 @@ fn main() -> Result<()> {
     Command::with_args("rustc", &["+nightly", "--version"]).run()?;
 
     // Build the UEFI app.
-    Command::with_args(
+    let mut cmd = Command::with_args(
         "cargo",
         &[
             "+nightly",
@@ -24,8 +24,10 @@ fn main() -> Result<()> {
             "--package",
             "uefi-div-bug",
         ],
-    )
-    .run()?;
+    );
+    cmd.env
+        .insert("RUSTFLAGS".into(), "--emit asm -Z asm-comments".into());
+    cmd.run()?;
 
     let efi_partition = "efi_partition";
     let qemu = "qemu-system-x86_64";
