@@ -21,8 +21,8 @@ fn efi_main(_image: Handle, mut st: SystemTable<Boot>) -> Status {
 
     info!("efi_main addr={:x?}", efi_main as *const ());
 
-    let a = hide_u128(2);
-    let b = hide_u128(1);
+    let a = hide_u128(0x88cc88);
+    let b = hide_u128(0x77bb77);
     info!("a={}, b={}", a, b);
 
     info!("a+b={}", a + b);

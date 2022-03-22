@@ -269,7 +269,7 @@ uefi_div_bug::efi_main:
 063ac505 jne       0x0000`0000`063A`C52A
 063ac507 xor       %eax,%eax
 063ac509 mov       %eax,%edx
-063ac50b mov       $2,%ecx
+063ac50b mov       $0x88`CC88,%ecx
 063ac510 call      0x0000`0000`063A`C350
 063ac515 mov       %rdx,0x1A0(%rsp)
 063ac51d mov       %rax,0x198(%rsp)
@@ -300,7 +300,7 @@ uefi_div_bug::efi_main:
 063ac5d2 jmp       0x0000`0000`063A`C507
 063ac5d7 xor       %eax,%eax
 063ac5d9 mov       %eax,%edx
-063ac5db mov       $1,%ecx
+063ac5db mov       $0x77`BB77,%ecx
 063ac5e0 call      0x0000`0000`063A`C350
 063ac5e5 mov       %rdx,0x1B0(%rsp)
 063ac5ed mov       %rax,0x1A8(%rsp)
