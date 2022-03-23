@@ -25,8 +25,10 @@ fn main() -> Result<()> {
             "uefi-div-bug",
         ],
     );
-    cmd.env
-        .insert("RUSTFLAGS".into(), "--emit asm -Z asm-comments".into());
+    cmd.env.insert(
+        "RUSTFLAGS".into(),
+        "--emit llvm-ir --emit asm -Z asm-comments".into(),
+    );
     cmd.run()?;
 
     let efi_partition = "efi_partition";
